@@ -12,5 +12,5 @@ class OAuth2UserAgentUtils {
 		return new RequestEntity<>(request.getBody(), headers, request.getMethod(), request.getUrl());
 	}
 
-	private static final String DISCORD_BOT_USER_AGENT = "DiscordBot (https://github.com/fourscouts/blog/tree/master/oauth2-discord)";
+	private static final String DISCORD_BOT_USER_AGENT = "RivBot (https://github.com/OpenRiv/riv-bot.git)";
 }
