@@ -1,4 +1,4 @@
-package nl.fourscouts.security;
+package ssu.riv.security;
 
 import org.junit.Test;
 import org.springframework.http.HttpHeaders;

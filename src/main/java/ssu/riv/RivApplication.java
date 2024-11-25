@@ -21,15 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package nl.fourscouts;
+package ssu.riv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Server {
+public class RivApplication {
 	public static void main(String[] args) {
 
-		SpringApplication.run(Server.class, args);
+		SpringApplication.run(RivApplication.class, args);
 	}
 }

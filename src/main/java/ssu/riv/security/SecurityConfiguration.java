@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package nl.fourscouts.security;
+package ssu.riv.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static nl.fourscouts.security.OAuth2UserAgentUtils.withUserAgent;
+import static ssu.riv.security.OAuth2UserAgentUtils.withUserAgent;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -53,12 +53,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+				.authorizeRequests()
+				// Swagger UI 및 API 문서를 허용
+				.antMatchers(
+						"/v3/api-docs/**",
+						"/swagger-ui.html",
+						"/swagger-ui/**"
+				).permitAll()
+				// 나머지 요청은 인증 필요
+				.anyRequest().authenticated()
+				.and()
 			.oauth2Login()
 				.tokenEndpoint().accessTokenResponseClient(accessTokenResponseClient())
 				.and()
 				.userInfoEndpoint()
 				// .userService(userService());
-				.userService(customOAuth2UserService());;
+				.userService(customOAuth2UserService());
+		// CSRF 비활성화 (필요시)
+		http.csrf().disable();
 	}
 
 	@Bean

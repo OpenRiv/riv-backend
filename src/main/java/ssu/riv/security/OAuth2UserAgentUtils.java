@@ -1,4 +1,4 @@
-package nl.fourscouts.security;
+package ssu.riv.security;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
