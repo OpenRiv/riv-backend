@@ -32,4 +32,12 @@ public abstract class RecodingResponse {
         private Long recodingId;     // 레코딩 ID
         private LocalDateTime updatedAt; // 수정된 시간
     }
+
+    //파일 삭제 시
+    @Getter
+    @Builder
+    public static class DeleteRecodingInfo {
+        private Long recodingId;     // 삭제된 레코딩 ID
+        private LocalDateTime deletedAt; // 삭제 시간
+    }
 }

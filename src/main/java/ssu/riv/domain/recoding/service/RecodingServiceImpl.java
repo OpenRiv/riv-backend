@@ -68,6 +68,18 @@ public class RecodingServiceImpl implements RecodingService {
         return recodingRepository.save(recoding); // 수정된 Recoding 저장 및 반환
     }
 
+    @Override
+    public Recoding deleteRecoding(Long recodingId) {
+        // recodingId로 Recoding 조회
+        Recoding recoding = findRecoding(recodingId);
+
+        // 물리적 삭제 수행
+        recodingRepository.delete(recoding);
+
+        // 삭제 전의 Recoding 데이터 반환
+        return recoding;
+    }
+
     private Recoding findRecoding(Long recodingId) {
         return recodingRepository.findById(recodingId)
                 .orElseThrow(() -> new BusinessException(RivErrorCode.RECODING_NOT_FOUND));
