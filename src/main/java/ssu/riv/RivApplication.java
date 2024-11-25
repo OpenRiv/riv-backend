@@ -23,10 +23,22 @@
  */
 package ssu.riv;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import javax.annotation.PostConstruct;
+import java.time.ZonedDateTime;
+import java.util.TimeZone;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @SpringBootApplication
+@EnableJpaAuditing
+@EnableScheduling
+@Slf4j
 public class RivApplication {
 	public static void main(String[] args) {
 
