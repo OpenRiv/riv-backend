@@ -38,8 +38,8 @@ public class Recoding {
     @JoinColumn(name = "channel_id")
     private Channel channel;
 
-    @Column(name = "joined_at")
-    private LocalDateTime joinedAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
     @Column(name = "deleted_at")
