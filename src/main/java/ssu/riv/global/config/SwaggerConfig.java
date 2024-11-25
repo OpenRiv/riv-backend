@@ -22,7 +22,7 @@ public class SwaggerConfig {
         SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
 
         Server server = new Server();
-        server.setUrl("http://3.36.115.177:8081");
+        server.setUrl("http://3.37.89.101:8080");
 
         Server local = new Server();
         local.setUrl("http://localhost:8080");
@@ -30,9 +30,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .components(new Components().addSecuritySchemes("bearerAuth", securityScheme))
                 .security(Arrays.asList(securityRequirement))
-                .info(apiInfo()) .servers(Arrays.asList(local)); // Java 8 호환
-
-                //.info(apiInfo()) .servers(Arrays.asList(server,local));
+                .info(apiInfo()) .servers(Arrays.asList(server, local)); // Java 8 호환
     }
 
     private Info apiInfo() {

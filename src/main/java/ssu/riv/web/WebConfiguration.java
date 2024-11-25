@@ -32,7 +32,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/swagger-ui/**")
-				.allowedOrigins("http://localhost:8080")
+				.allowedOrigins("http://3.37.89.101:8080")
 				.allowCredentials(true)
 				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
 				.allowedHeaders("*")
