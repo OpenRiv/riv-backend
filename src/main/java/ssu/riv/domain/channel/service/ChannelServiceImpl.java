@@ -52,4 +52,11 @@ public class ChannelServiceImpl implements ChannelService {
                 .map(Channel::getId) // DB의 채널 ID만 추출
                 .collect(Collectors.toList()); // 자바 8 버전
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Channel getChannelId(String channelUnique) {
+        return channelRepository.findByChannelUnique(channelUnique)
+                .orElseThrow(() -> new BusinessException(RivErrorCode.CHANNEL_NOT_FOUND));
+    }
 }

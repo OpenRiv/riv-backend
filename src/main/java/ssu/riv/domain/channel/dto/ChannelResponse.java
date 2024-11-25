@@ -14,4 +14,9 @@ public abstract class ChannelResponse {
         private List<Long> channelIds; // 서버에 포함된 채널 ID들의 리스트
     }
 
+    @Getter
+    @Builder
+    public static class ChannelIdInfo {
+        private Long channelId;
+    }
 }
