@@ -24,4 +24,13 @@ public class ChannelConverter {
                 .channelId(channel.getId()) // DB에서 생성된 Long 타입 채널 ID
                 .build();
     }
+
+
+    public ChannelResponse.ChannelListInfo toChannelListInfo(Long serverId, List<Long> channelIds) {
+        return ChannelResponse.ChannelListInfo
+                .builder()
+                .serverId(serverId)
+                .channelList(channelIds)
+                .build();
+    }
 }

@@ -23,6 +23,7 @@ public class ChannelServiceImpl implements ChannelService {
     private final ChannelRepository channelRepository;
     private final ServerRepository serverRepository;
 
+    // 채널 추가
     @Override
     public List<Long> addChannels(Long serverId, List<String> channelUniqueIds) {
         // 1. 서버가 존재하는지 확인
@@ -43,20 +44,22 @@ public class ChannelServiceImpl implements ChannelService {
         return savedChannelIds; // 방금 저장한 채널들의 ID 리스트 반환
     }
 
-    // 서버 ID로 모든 채널 ID를 조회
-    @Override
-    @Transactional(readOnly = true)
-    public List<Long> findChannelIds(Long serverId) {
-        return channelRepository.findByServerId(serverId) // 서버 ID로 채널 조회
-                .stream()
-                .map(Channel::getId) // DB의 채널 ID만 추출
-                .collect(Collectors.toList()); // 자바 8 버전
-    }
-
+    // unique id로 특정 채널 조회
     @Override
     @Transactional(readOnly = true)
     public Channel getChannelId(String channelUnique) {
         return channelRepository.findByChannelUnique(channelUnique)
                 .orElseThrow(() -> new BusinessException(RivErrorCode.CHANNEL_NOT_FOUND));
+    }
+
+    // 서버 ID로 모든 채널 ID를 조회
+    @Override
+    @Transactional(readOnly = true)
+    public List<Long> getChannelList(Long serverId) {
+        // 서버 ID로 채널 목록 조회
+        return channelRepository.findByServerId(serverId)
+                .stream()
+                .map(Channel::getId) // DB에서 생성된 Long 타입 채널 ID 추출
+                .collect(Collectors.toList());
     }
 }

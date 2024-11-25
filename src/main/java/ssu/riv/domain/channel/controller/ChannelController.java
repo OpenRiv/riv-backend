@@ -51,4 +51,17 @@ public class ChannelController {
         return ResultResponse.of(RivResultCode.GET_CHANNEL_ID,
                 channelConverter.toChannelId(channel));
     }
+
+    // 특정 서버의 채널 목록 조회 API
+    @GetMapping("/{serverId}/channels")
+    @Operation(summary = "서버의 채널 목록 조회 API", description = "특정 서버에 속한 모든 채널 ID를 조회하는 API입니다.")
+    public ResultResponse<ChannelResponse.ChannelListInfo> getChannelList(@PathVariable Long serverId) {
+
+        // 채널 목록 조회
+        List<Long> channelIdList = channelService.getChannelList(serverId);
+
+        // 컨버터를 통해 응답 변환
+        return ResultResponse.of(RivResultCode.GET_CHANNEL_LIST,
+                channelConverter.toChannelListInfo(serverId, channelIdList));
+    }
 }
