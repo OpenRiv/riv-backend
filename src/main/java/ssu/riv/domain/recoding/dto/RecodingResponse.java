@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public abstract class RecodingResponse {
 
@@ -39,5 +40,26 @@ public abstract class RecodingResponse {
     public static class DeleteRecodingInfo {
         private Long recodingId;     // 삭제된 레코딩 ID
         private LocalDateTime deletedAt; // 삭제 시간
+    }
+
+    // 페이징 처리된 요약본 목록
+    @Getter
+    @Builder
+    public static class PagedRecodingInfo {
+        private List<TextInfo> textInfoList; // 요약본 정보 리스트
+        private int pages;                  // 총 페이지 수
+        private long totalElements;         // 총 요소 수
+        private boolean isFirst;            // 첫 번째 페이지 여부
+        private boolean isLast;             // 마지막 페이지 여부
+    }
+
+    // 요약본 1개 반환
+    @Getter
+    @Builder
+    public static class TextInfo {
+        private Long recodingId;       // 요약본 ID
+        private String title;          // 제목
+        private String subtext;        // 텍스트 요약 (50자 + ...) 처리
+        private LocalDateTime createdAt; // 생성 시간
     }
 }

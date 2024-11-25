@@ -2,6 +2,8 @@ package ssu.riv.domain.recoding.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssu.riv.domain.channel.entity.Channel;
@@ -78,6 +80,12 @@ public class RecodingServiceImpl implements RecodingService {
 
         // 삭제 전의 Recoding 데이터 반환
         return recoding;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Recoding> getRecodingList(Long channelId, Pageable pageable) {
+        return recodingRepository.findByChannelId(channelId, pageable);
     }
 
     private Recoding findRecoding(Long recodingId) {
