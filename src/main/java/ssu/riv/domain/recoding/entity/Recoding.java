@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ssu.riv.domain.channel.entity.Channel;
 
 import javax.persistence.Column;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 @Table(name = "recoding")
 @Getter
 @Builder
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Recoding {

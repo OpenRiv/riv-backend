@@ -21,4 +21,14 @@ public abstract class RecodingRequest {
         private String title;   // 제목
         private String text;    // 텍스트
     }
+
+    // 녹음파일 수정 시
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateRecodingRequest {
+        private String title; // 제목
+        private String text;  // 텍스트
+    }
 }

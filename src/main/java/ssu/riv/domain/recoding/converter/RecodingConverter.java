@@ -27,4 +27,11 @@ public class RecodingConverter {
                 .createdAt(recoding.getCreatedAt())
                 .build();
     }
+
+    public RecodingResponse.UpdateRecodingInfo toUpdateRecodingInfo(Recoding recoding) {
+        return RecodingResponse.UpdateRecodingInfo.builder()
+                .recodingId(recoding.getId())
+                .updatedAt(recoding.getUpdatedAt())
+                .build();
+    }
 }

@@ -24,4 +24,12 @@ public abstract class RecodingResponse {
         private String text;
         private LocalDateTime createdAt;
     }
+
+    //파일 수정 시
+    @Getter
+    @Builder
+    public static class UpdateRecodingInfo {
+        private Long recodingId;     // 레코딩 ID
+        private LocalDateTime updatedAt; // 수정된 시간
+    }
 }

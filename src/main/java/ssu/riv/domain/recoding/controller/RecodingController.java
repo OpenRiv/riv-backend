@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,5 +48,17 @@ public class RecodingController {
         // 응답 데이터 변환
         return ResultResponse.of(RivResultCode.RECODING_INFO,
                 recodingConverter.toRecodingInfo(recoding));
+    }
+
+    @PatchMapping("/{recodingId}")
+    @Operation(summary = "요약본 텍스트 파일 수정 API", description = "recodingId를 기반으로 제목과 텍스트를 수정합니다.")
+    public ResultResponse<RecodingResponse.UpdateRecodingInfo> updateRecoding(
+            @PathVariable Long recodingId,
+            @RequestBody RecodingRequest.UpdateRecodingRequest request) {
+
+        Recoding updatedRecoding = recodingService.updateRecoding(recodingId, request);
+
+        return ResultResponse.of(RivResultCode.UPDATE_RECODING,
+                recodingConverter.toUpdateRecodingInfo(updatedRecoding));
     }
 }

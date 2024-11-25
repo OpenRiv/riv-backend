@@ -44,7 +44,33 @@ public class RecodingServiceImpl implements RecodingService {
     @Override
     @Transactional(readOnly = true)
     public Recoding getRecoding(Long recodingId) {
+        return findRecoding(recodingId);
+    }
+
+    @Override
+    public Recoding updateRecoding(Long recodingId, RecodingRequest.UpdateRecodingRequest request) {
+        // recodingId로 Recoding 조회
+        Recoding recoding = findRecoding(recodingId);
+
+        // 제목 수정
+        if (request.getTitle() != null && !request.getTitle().isEmpty()) {
+            recoding.setTitle(request.getTitle());
+        }
+
+        // 텍스트 수정
+        if (request.getText() != null && !request.getText().isEmpty()) {
+            recoding.setText(request.getText());
+        }
+
+        // 수정 시간 갱신
+        recoding.setUpdatedAt(LocalDateTime.now());
+
+        return recodingRepository.save(recoding); // 수정된 Recoding 저장 및 반환
+    }
+
+    private Recoding findRecoding(Long recodingId) {
         return recodingRepository.findById(recodingId)
                 .orElseThrow(() -> new BusinessException(RivErrorCode.RECODING_NOT_FOUND));
     }
+
 }

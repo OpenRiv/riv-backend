@@ -13,6 +13,7 @@ public enum RivResultCode implements ResultCode {
     GET_CHANNEL_LIST(200, "SR003", "성공적으로 채널 id 리스트를 조회했습니다."),
     SAVE_RECODING(200, "SR005", "성공적으로 요약본을 저장헀습니다."),
     RECODING_INFO(200, "SR006", "성공적으로 요약본을 조회헀습니다."),
+    UPDATE_RECODING(200, "SR007", "성공적으로 요약본을 수정헀습니다."),
     ;
     private final int status;
     private final String code;
