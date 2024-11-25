@@ -40,4 +40,11 @@ public class RecodingServiceImpl implements RecodingService {
 
         return recodingRepository.save(recoding);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Recoding getRecoding(Long recodingId) {
+        return recodingRepository.findById(recodingId)
+                .orElseThrow(() -> new BusinessException(RivErrorCode.RECODING_NOT_FOUND));
+    }
 }

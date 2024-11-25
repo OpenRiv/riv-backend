@@ -17,4 +17,14 @@ public class RecodingConverter {
                 .createdAt(recoding.getCreatedAt()) // 생성 시간
                 .build();
     }
+
+    public RecodingResponse.GetRecodingInfo toRecodingInfo(Recoding recoding) {
+        return RecodingResponse.GetRecodingInfo
+                .builder()
+                .recodingId(recoding.getId())
+                .title(recoding.getTitle())
+                .text(recoding.getText())
+                .createdAt(recoding.getCreatedAt())
+                .build();
+    }
 }
