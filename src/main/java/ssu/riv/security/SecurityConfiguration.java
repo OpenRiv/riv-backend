@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.RequestEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.oauth2.client.endpoint.DefaultAuthorizationCodeTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResponseClient;
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
@@ -58,7 +59,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(
 						"/v3/api-docs/**",
 						"/swagger-ui.html",
-						"/swagger-ui/**"
+						"/swagger-ui/**", // 스웨거 경로도 보안 필터에서 제외
+						"/servers/**",
+						"recoding/**"
 				).permitAll()
 				// 나머지 요청은 인증 필요
 				.anyRequest().authenticated()
@@ -119,5 +122,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				);
 			}
 		};
+	}
+
+	// WebSecurityCustomizer를 빈으로 등록하여 특정 요청 경로를 보안 필터에서 제외
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer(){
+		// 아래 url은 filter 에서 제외
+		return web ->
+				web.ignoring()
+						.antMatchers(
+								"/v3/api-docs/**",
+								"/swagger-ui.html",
+								"/swagger-ui/**", // 스웨거 경로도 보안 필터에서 제외
+								"/servers/**",
+								"recoding/**"
+						);
 	}
 }
