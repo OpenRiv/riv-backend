@@ -1,9 +1,17 @@
 package ssu.riv.domain.channel.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 import ssu.riv.domain.channel.entity.Channel;
 import ssu.riv.domain.channel.repository.ChannelRepository;
 import ssu.riv.domain.server.entity.Server;
@@ -12,7 +20,9 @@ import ssu.riv.global.error.BusinessException;
 import ssu.riv.global.error.code.RivErrorCode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +32,11 @@ import java.util.stream.Collectors;
 public class ChannelServiceImpl implements ChannelService {
     private final ChannelRepository channelRepository;
     private final ServerRepository serverRepository;
+
+    private final RestTemplate restTemplate;
+
+    @Value("${discord.bot.token}")
+    private String botToken;
 
     // 채널 추가
     @Override
@@ -62,4 +77,31 @@ public class ChannelServiceImpl implements ChannelService {
                 .map(Channel::getId) // DB에서 생성된 Long 타입 채널 ID 추출
                 .collect(Collectors.toList());
     }
+
+    // 디스코드로부터, 채널의 목록을 가져온다. (권한 우회)
+    @Override
+    public List<Long> getGuildChannel(Long guildId) {
+        // 디스코드 API 엔드포인트 설정
+        String url = "https://discord.com/api/guilds/" + guildId + "/channels";
+
+        // 헤더에 봇 토큰 추가
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bot " + botToken);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        // 디스코드 API 호출
+        ResponseEntity<Channel[]> response = restTemplate.exchange(url, HttpMethod.GET, entity, Channel[].class);
+
+        // 채널 ID 목록 반환
+        return Arrays.stream(Objects.requireNonNull(response.getBody()))
+                .map(Channel::getId)
+                .collect(Collectors.toList());
+    }
+
+    // 디스코드에서 어떻게 채널 데이터를 가져오는지에 대한 주석:
+    // - 이 메서드는 디스코드 API의 `/guilds/{guildId}/channels` 엔드포인트를 호출하여 특정 서버에 속한 채널 목록을 가져옵니다.
+    // - 호출 시 봇 토큰을 Authorization 헤더에 추가하여 인증합니다.
+    // - API의 응답은 Channel 배열이며, 여기서 각 채널의 ID만 추출하여 반환합니다.
+
 }

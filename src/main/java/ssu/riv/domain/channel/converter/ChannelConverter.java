@@ -25,7 +25,6 @@ public class ChannelConverter {
                 .build();
     }
 
-
     public ChannelResponse.ChannelListInfo toChannelListInfo(Long serverId, List<Long> channelIds) {
         return ChannelResponse.ChannelListInfo
                 .builder()

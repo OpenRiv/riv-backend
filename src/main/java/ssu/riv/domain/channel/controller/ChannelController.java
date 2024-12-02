@@ -96,4 +96,16 @@ public class ChannelController {
         return ResultResponse.of(RivResultCode.GET_RECODING_LIST,
                 recodingConverter.toPagedRecodingInfo(recodingList));
     }
+
+    @GetMapping("/channels/guilds/{guildId}")
+    @Operation(summary = "채널 정보 조회 API", description = "guildId를 통해 디스코드 서버로부터, 채널 정보를 조회하는 API입니다.")
+    public ResultResponse<ChannelResponse.ChannelListInfo> getDiscordChannel(@PathVariable Long guildId) {
+
+        // 채널 목록 조회
+        List<Long> channelIdList = channelService.getGuildChannel(guildId);
+
+        // 컨버터를 통해 응답 변환
+        return ResultResponse.of(RivResultCode.GET_CHANNEL_LIST,
+                channelConverter.toChannelListInfo(guildId, channelIdList));
+    }
 }
