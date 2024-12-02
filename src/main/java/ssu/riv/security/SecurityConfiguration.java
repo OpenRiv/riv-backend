@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						"/swagger-ui.html",
 						"/swagger-ui/**", // 스웨거 경로도 보안 필터에서 제외
 						"/servers/**",
-						"recoding/**"
+						"/recoding/**"
 				).permitAll()
 				// 나머지 요청은 인증 필요
 				.anyRequest().authenticated()
@@ -135,7 +135,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 								"/swagger-ui.html",
 								"/swagger-ui/**", // 스웨거 경로도 보안 필터에서 제외
 								"/servers/**",
-								"recoding/**"
+								"/recoding/**"
 						);
 	}
 }
