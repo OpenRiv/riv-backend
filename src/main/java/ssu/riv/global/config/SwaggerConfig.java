@@ -30,10 +30,17 @@ public class SwaggerConfig {
         Server local = new Server();
         local.setUrl("http://localhost:8080");
 
+        Server frontLocal = new Server();
+        frontLocal.setUrl("http://localhost:5173");
+
+        Server frontServer = new Server();
+        frontServer.setUrl("https://riv-frontend.vercel.app");
+
+
         return new OpenAPI()
                 .components(new Components().addSecuritySchemes("bearerAuth", securityScheme))
                 .security(Arrays.asList(securityRequirement))
-                .info(apiInfo()) .servers(Arrays.asList(server, local)); // Java 8 호환
+                .info(apiInfo()) .servers(Arrays.asList(server, local, frontLocal, frontServer)); // Java 8 호환
     }
 
     @Bean
