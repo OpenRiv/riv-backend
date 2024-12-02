@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ssu.riv.domain.channel.entity.Channel;
 import ssu.riv.domain.server.entity.Server;
 import ssu.riv.domain.server.repository.ServerRepository;
 import ssu.riv.global.error.BusinessException;
@@ -39,5 +40,13 @@ public class ServerServiceImpl implements ServerService {
         if (serverRepository.existsByServerUnique(serverUnique)) {
             throw new BusinessException(RivErrorCode.EXIST_SERVER);
         }
+    }
+
+    // unique id로 특정 채널 조회
+    @Override
+    @Transactional(readOnly = true)
+    public Server getServerId(String serverUnique) {
+        return serverRepository.findByServerUnique(serverUnique)
+                .orElseThrow(() -> new BusinessException(RivErrorCode.SERVER_NOT_FOUND));
     }
 }

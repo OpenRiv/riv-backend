@@ -16,6 +16,7 @@ public enum RivResultCode implements ResultCode {
     RECODING_INFO(200, "SR006", "성공적으로 요약본을 조회헀습니다."),
     UPDATE_RECODING(200, "SR007", "성공적으로 요약본을 수정헀습니다."),
     DELETE_RECODING(200, "SR008", "성공적으로 요약본을 삭제헀습니다."),
+    GET_SERVER_ID(200, "SR009", "성공적으로 서버id를 조회했습니다.")
     ;
     private final int status;
     private final String code;

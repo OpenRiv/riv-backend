@@ -17,4 +17,11 @@ public class ServerConverter {
                 .build();
     }
 
+    public ServerResponse.ServerIdInfo toServerId(Server server) {
+        return ServerResponse.ServerIdInfo
+                .builder()
+                .serverId(server.getId()) // DB에서 생성된 Long 타입 채널 ID
+                .build();
+    }
+
 }
