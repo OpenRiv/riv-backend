@@ -55,7 +55,9 @@ public class RivApplication {
                 registry.addMapping("/**")
                         .allowedMethods("*")
                         .allowedOrigins("https://riv-frontend.vercel.app",
-								"http://localhost:5173");
+								"http://localhost:5173",
+                                "http://www.riv-discord.online/",
+                                "http://3.37.89.101:8080");
             }
         };
     }
