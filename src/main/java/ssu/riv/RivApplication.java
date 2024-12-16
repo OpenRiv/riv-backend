@@ -56,8 +56,9 @@ public class RivApplication {
                         .allowedMethods("*")
                         .allowedOrigins("https://riv-frontend.vercel.app",
 								"http://localhost:5173",
-                                "http://www.riv-discord.online/",
-                                "http://3.37.89.101:8080");
+                                "https://www.riv-discord.online/",
+                                "http://3.37.89.101:8080",
+                                "https://vercel.live");
             }
         };
     }
