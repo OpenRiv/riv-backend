@@ -50,6 +50,8 @@ public class Recoding {
     private LocalDateTime startTime;
     @Column(name = "end_time")
     private LocalDateTime endTime;
+    @Column(name = "category")
+    private String category;
 
 
     public void delete() {

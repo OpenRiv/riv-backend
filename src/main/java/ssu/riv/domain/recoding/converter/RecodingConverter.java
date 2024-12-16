@@ -22,6 +22,7 @@ public class RecodingConverter {
                 .createdAt(recoding.getCreatedAt()) // 생성 시간
                 .startTime(recoding.getStartTime())
                 .endTime(recoding.getEndTime())
+                .category(recoding.getCategory())
                 .build();
     }
 

@@ -16,6 +16,7 @@ public abstract class RecodingResponse {
         private LocalDateTime createdAt; // 생성된 시간
         private LocalDateTime startTime;
         private LocalDateTime endTime;
+        private String category;
     }
 
     //파일 조회 시

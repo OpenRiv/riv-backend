@@ -40,6 +40,7 @@ public class RecodingServiceImpl implements RecodingService {
                 .createdAt(LocalDateTime.now()) // 생성 시간 저장
                 .startTime(request.getStartTime())
                 .endTime(request.getEndTime())
+                .category(request.getCategoryName())
                 .build();
 
         return recodingRepository.save(recoding);
