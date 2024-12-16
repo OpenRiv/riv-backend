@@ -5,10 +5,13 @@ import org.springframework.data.domain.Pageable;
 import ssu.riv.domain.recoding.dto.RecodingRequest;
 import ssu.riv.domain.recoding.entity.Recoding;
 
+import java.time.LocalDateTime;
+
 public interface RecodingService {
     Recoding saveRecoding(RecodingRequest.SaveRecodingRequest request);
     Recoding getRecoding(Long recodingId);
     Recoding updateRecoding(Long recodingId, RecodingRequest.UpdateRecodingRequest request);
     Recoding deleteRecoding(Long recodingId);
     Page<Recoding> getRecodingList(Long channelId, Pageable pageable);
+    Recoding saveMeetingTime(Long recodingId, LocalDateTime startTime, LocalDateTime endTime);
 }

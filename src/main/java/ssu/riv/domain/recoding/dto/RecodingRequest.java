@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 public abstract class RecodingRequest {
 
@@ -30,5 +31,15 @@ public abstract class RecodingRequest {
     public static class UpdateRecodingRequest {
         private String title; // 제목
         private String text;  // 텍스트
+    }
+
+    // 녹음시간 저장 시
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SaveMeetingTimeRequest {
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
     }
 }

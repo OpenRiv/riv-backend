@@ -70,4 +70,16 @@ public class RecodingController {
         return ResultResponse.of(RivResultCode.DELETE_RECODING,
                 recodingConverter.toDeleteRecodingInfo(deletedRecoding));
     }
+
+    @PostMapping("/{recodingId}/meeting-time")
+    @Operation(summary = "레코딩 회의시간 저장 API", description = "특정 recodingId에 대한 회의 시작 시간과 종료 시간을 저장합니다.")
+    public ResultResponse<RecodingResponse.SaveMeetingTimeInfo> saveMeetingTime(
+            @PathVariable Long recodingId,
+            @RequestBody RecodingRequest.SaveMeetingTimeRequest request) {
+
+        Recoding updatedRecoding = recodingService.saveMeetingTime(recodingId, request.getStartTime(), request.getEndTime());
+
+        return ResultResponse.of(RivResultCode.SAVE_MEETING_TIME,
+                recodingConverter.toSaveMeetingTimeInfo(updatedRecoding));
+    }
 }

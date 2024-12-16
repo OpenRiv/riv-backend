@@ -88,6 +88,14 @@ public class RecodingServiceImpl implements RecodingService {
         return recodingRepository.findByChannelId(channelId, pageable);
     }
 
+    @Override
+    public Recoding saveMeetingTime(Long recodingId, LocalDateTime startTime, LocalDateTime endTime) {
+        Recoding recoding = findRecoding(recodingId);
+        recoding.setStartTime(startTime);
+        recoding.setEndTime(endTime);
+        return recodingRepository.save(recoding);
+    }
+
     private Recoding findRecoding(Long recodingId) {
         return recodingRepository.findById(recodingId)
                 .orElseThrow(() -> new BusinessException(RivErrorCode.RECODING_NOT_FOUND));

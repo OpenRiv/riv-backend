@@ -66,6 +66,16 @@ public class RecodingConverter {
                 .build();
     }
 
+    // 회의 시작/끝 시간 저장
+    public RecodingResponse.SaveMeetingTimeInfo toSaveMeetingTimeInfo(Recoding recoding) {
+
+        return RecodingResponse.SaveMeetingTimeInfo.builder()
+                .recodingId(recoding.getId())
+                .startTime(recoding.getStartTime())
+                .endTime(recoding.getEndTime())
+                .build();
+    }
+
     private RecodingResponse.TextInfo toFiftyTextInfo(Recoding recoding) {
         return RecodingResponse.TextInfo
                 .builder()
@@ -84,4 +94,6 @@ public class RecodingConverter {
         //텍스트가 50자 이상이면 ... 처리, 아니면 그냥 보여줌
         return text.length() > 50 ? text.substring(0, 50) + "..." : text;
     }
+
+
 }

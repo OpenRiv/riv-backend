@@ -46,6 +46,10 @@ public class Recoding {
     private LocalDateTime updatedAt;
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+    @Column(name = "start_time")
+    private LocalDateTime startTime;
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
 
 
     public void delete() {

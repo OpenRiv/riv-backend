@@ -62,4 +62,14 @@ public abstract class RecodingResponse {
         private String subtext;        // 텍스트 요약 (50자 + ...) 처리
         private LocalDateTime createdAt; // 생성 시간
     }
+
+    // 녹음시간 반환
+    @Getter
+    @Builder
+    public static class SaveMeetingTimeInfo {
+        private Long recodingId;
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
+    }
+
 }
