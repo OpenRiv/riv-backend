@@ -14,6 +14,8 @@ public abstract class RecodingResponse {
     public static class SaveRecodingInfo {
         private Long recodingId;     // 생성된 Recoding ID
         private LocalDateTime createdAt; // 생성된 시간
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
     }
 
     //파일 조회 시
@@ -61,15 +63,6 @@ public abstract class RecodingResponse {
         private String title;          // 제목
         private String subtext;        // 텍스트 요약 (50자 + ...) 처리
         private LocalDateTime createdAt; // 생성 시간
-    }
-
-    // 녹음시간 반환
-    @Getter
-    @Builder
-    public static class SaveMeetingTimeInfo {
-        private Long recodingId;
-        private LocalDateTime startTime;
-        private LocalDateTime endTime;
     }
 
 }

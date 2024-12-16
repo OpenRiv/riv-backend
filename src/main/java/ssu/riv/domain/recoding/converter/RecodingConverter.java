@@ -20,6 +20,8 @@ public class RecodingConverter {
                 .builder()
                 .recodingId(recoding.getId()) // Recoding ID
                 .createdAt(recoding.getCreatedAt()) // 생성 시간
+                .startTime(recoding.getStartTime())
+                .endTime(recoding.getEndTime())
                 .build();
     }
 
@@ -63,16 +65,6 @@ public class RecodingConverter {
                 .totalElements(recodingPage.getTotalElements())
                 .isFirst(recodingPage.isFirst())
                 .isLast(recodingPage.isLast())
-                .build();
-    }
-
-    // 회의 시작/끝 시간 저장
-    public RecodingResponse.SaveMeetingTimeInfo toSaveMeetingTimeInfo(Recoding recoding) {
-
-        return RecodingResponse.SaveMeetingTimeInfo.builder()
-                .recodingId(recoding.getId())
-                .startTime(recoding.getStartTime())
-                .endTime(recoding.getEndTime())
                 .build();
     }
 

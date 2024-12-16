@@ -21,6 +21,8 @@ public abstract class RecodingRequest {
         @NotNull(message = "제목은 필수로 입력해야 합니다.")
         private String title;   // 제목
         private String text;    // 텍스트
+        private LocalDateTime startTime; // 회의 시작 시간
+        private LocalDateTime endTime; // 회의 종료 시간
     }
 
     // 녹음파일 수정 시
@@ -31,15 +33,5 @@ public abstract class RecodingRequest {
     public static class UpdateRecodingRequest {
         private String title; // 제목
         private String text;  // 텍스트
-    }
-
-    // 녹음시간 저장 시
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class SaveMeetingTimeRequest {
-        private LocalDateTime startTime;
-        private LocalDateTime endTime;
     }
 }

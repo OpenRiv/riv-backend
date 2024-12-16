@@ -13,5 +13,4 @@ public interface RecodingService {
     Recoding updateRecoding(Long recodingId, RecodingRequest.UpdateRecodingRequest request);
     Recoding deleteRecoding(Long recodingId);
     Page<Recoding> getRecodingList(Long channelId, Pageable pageable);
-    Recoding saveMeetingTime(Long recodingId, LocalDateTime startTime, LocalDateTime endTime);
 }

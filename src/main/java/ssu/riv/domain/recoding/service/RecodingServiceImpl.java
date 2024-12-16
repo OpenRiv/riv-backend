@@ -38,6 +38,8 @@ public class RecodingServiceImpl implements RecodingService {
                 .title(request.getTitle())
                 .text(request.getText())
                 .createdAt(LocalDateTime.now()) // 생성 시간 저장
+                .startTime(request.getStartTime())
+                .endTime(request.getEndTime())
                 .build();
 
         return recodingRepository.save(recoding);
@@ -86,14 +88,6 @@ public class RecodingServiceImpl implements RecodingService {
     @Transactional(readOnly = true)
     public Page<Recoding> getRecodingList(Long channelId, Pageable pageable) {
         return recodingRepository.findByChannelId(channelId, pageable);
-    }
-
-    @Override
-    public Recoding saveMeetingTime(Long recodingId, LocalDateTime startTime, LocalDateTime endTime) {
-        Recoding recoding = findRecoding(recodingId);
-        recoding.setStartTime(startTime);
-        recoding.setEndTime(endTime);
-        return recodingRepository.save(recoding);
     }
 
     private Recoding findRecoding(Long recodingId) {
