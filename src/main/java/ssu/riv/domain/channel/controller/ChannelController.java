@@ -108,4 +108,12 @@ public class ChannelController {
         return ResultResponse.of(RivResultCode.GET_CHANNEL_LIST,
                 channelConverter.toChannelListInfo(guildId, channelIdList));
     }
+
+    @GetMapping("/channels/{channelId}/categories")
+    @Operation(summary = "채널에 엮인 카테고리명 리스트 조회 API", description = "특정 channelId에 속한 카테고리의 목록을 조회합니다.")
+    public ResultResponse<ChannelResponse.CategoryListInfo> getCategoriesByChannel(@PathVariable Long channelId) {
+        List<String> categories = channelService.getCategoriesByChannel(channelId);
+        return ResultResponse.of(RivResultCode.CATEGORY_LIST,
+                channelConverter.toCategoriListInfo(channelId, categories));
+    }
 }

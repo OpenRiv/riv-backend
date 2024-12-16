@@ -13,4 +13,5 @@ public interface RecodingService {
     Recoding updateRecoding(Long recodingId, RecodingRequest.UpdateRecodingRequest request);
     Recoding deleteRecoding(Long recodingId);
     Page<Recoding> getRecodingList(Long channelId, Pageable pageable);
+    Page<Recoding> getCategoryRecodingList(String categoryName, Pageable pageable);
 }

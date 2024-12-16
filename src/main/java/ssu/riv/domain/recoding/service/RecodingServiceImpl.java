@@ -91,6 +91,12 @@ public class RecodingServiceImpl implements RecodingService {
         return recodingRepository.findByChannelId(channelId, pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Recoding> getCategoryRecodingList(String categoryName, Pageable pageable) {
+        return recodingRepository.findByCategory(categoryName, pageable);
+    }
+
     private Recoding findRecoding(Long recodingId) {
         return recodingRepository.findById(recodingId)
                 .orElseThrow(() -> new BusinessException(RivErrorCode.RECODING_NOT_FOUND));

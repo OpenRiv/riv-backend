@@ -9,4 +9,5 @@ public interface ChannelService {
     Channel getChannelId(String channelUnique);
     List<Long> getChannelList(Long serverId);
     List<Long> getGuildChannel(Long guildId);
+    List<String> getCategoriesByChannel(Long channelId);
 }

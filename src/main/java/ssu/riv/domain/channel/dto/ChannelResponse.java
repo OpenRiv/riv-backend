@@ -29,4 +29,11 @@ public abstract class ChannelResponse {
         private Long serverId;      // 서버 ID
         private List<Long> channelList; // 서버에 속한 채널 ID 리스트
     }
+
+    @Getter
+    @Builder
+    public static class CategoryListInfo {
+        private Long channelId;
+        private List<String> categories;
+    }
 }

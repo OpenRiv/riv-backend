@@ -1,8 +1,14 @@
 package ssu.riv.domain.recoding.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -48,6 +54,23 @@ public class RecodingController {
         // 응답 데이터 변환
         return ResultResponse.of(RivResultCode.RECODING_INFO,
                 recodingConverter.toRecodingInfo(recoding));
+    }
+
+    @GetMapping("/{categoryName}")
+    @Operation(summary = "특정 카테고리의 요약본 목록 조회 API", description = "특정 카테고리 이름에 속하는 레코딩 목록을 조회하는 API입니다.")
+    @Parameters(value = {
+            @Parameter(name = "page", description = "조회할 페이지를 입력하세요 (0부터 시작)"),
+            @Parameter(name = "size", description = "페이지당 표시할 요약본 개수를 입력하세요.")
+    })
+    public ResultResponse<RecodingResponse.PagedRecodingInfo> getCategoryRecoding(@PathVariable String categoryName,
+                                                                                      @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
+                                                                                      @Parameter(hidden = true) Pageable pageable) {
+        // 페이징 처리된 요약본 조회
+        Page<Recoding> categoryRecodingList = recodingService.getCategoryRecodingList(categoryName, pageable);
+
+        // 응답 데이터 변환
+        return ResultResponse.of(RivResultCode.CATEGORY_RECODING_INFO,
+                recodingConverter.toPagedRecodingInfo(categoryRecodingList));
     }
 
     @PatchMapping("/{recodingId}")

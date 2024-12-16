@@ -1,10 +1,8 @@
 package ssu.riv.domain.channel.service;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import ssu.riv.domain.channel.entity.Channel;
 import ssu.riv.domain.channel.repository.ChannelRepository;
+import ssu.riv.domain.recoding.repository.RecodingRepository;
 import ssu.riv.domain.server.entity.Server;
 import ssu.riv.domain.server.repository.ServerRepository;
 import ssu.riv.global.error.BusinessException;
@@ -32,6 +31,7 @@ import java.util.stream.Collectors;
 public class ChannelServiceImpl implements ChannelService {
     private final ChannelRepository channelRepository;
     private final ServerRepository serverRepository;
+    private final RecodingRepository recodingRepository;
 
     private final RestTemplate restTemplate;
 
@@ -103,5 +103,11 @@ public class ChannelServiceImpl implements ChannelService {
     // - 이 메서드는 디스코드 API의 `/guilds/{guildId}/channels` 엔드포인트를 호출하여 특정 서버에 속한 채널 목록을 가져옵니다.
     // - 호출 시 봇 토큰을 Authorization 헤더에 추가하여 인증합니다.
     // - API의 응답은 Channel 배열이며, 여기서 각 채널의 ID만 추출하여 반환합니다.
+
+    @Override
+    public List<String> getCategoriesByChannel(Long channelId) {
+        // Repository를 통해 Distinct한 카테고리 목록 조회
+        return recodingRepository.findDistinctCategoryByChannelId(channelId);
+    }
 
 }

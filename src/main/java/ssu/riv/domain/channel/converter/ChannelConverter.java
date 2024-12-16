@@ -32,4 +32,12 @@ public class ChannelConverter {
                 .channelList(channelIds)
                 .build();
     }
+
+    public ChannelResponse.CategoryListInfo toCategoriListInfo(Long channelId, List<String> categories) {
+        return ChannelResponse.CategoryListInfo
+                .builder()
+                .channelId(channelId)
+                .categories(categories)
+                .build();
+    }
 }
