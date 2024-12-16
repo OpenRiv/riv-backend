@@ -58,30 +58,6 @@ public class RecodingController {
                 recodingConverter.toRecodingInfo(recoding));
     }
 
-    @GetMapping("/{categoryName}")
-    @Operation(summary = "특정 카테고리의 요약본 목록 조회 API", description = "특정 카테고리 이름에 속하는 레코딩 목록을 조회하는 API입니다.")
-    @Parameters(value = {
-            @Parameter(name = "page", description = "조회할 페이지를 입력하세요 (0부터 시작)"),
-            @Parameter(name = "size", description = "페이지당 표시할 요약본 개수를 입력하세요.")
-    })
-    public ResultResponse<RecodingResponse.PagedRecodingInfo> getCategoryRecoding(@PathVariable String categoryName,
-                                                                                  @RequestParam(value = "isdesc", defaultValue = "true") boolean isdesc,
-                                                                                      @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
-                                                                                      @Parameter(hidden = true) Pageable pageable) {
-        // isdesc 값에 따라 정렬 방향 결정
-        Sort sort = Sort.by(isdesc ? Sort.Direction.DESC : Sort.Direction.ASC, "createdAt");
-
-        // 기존 Pageable을 새로운 Sort로 재생성
-        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
-
-        // 페이징 처리된 요약본 조회
-        Page<Recoding> categoryRecodingList = recodingService.getCategoryRecodingList(categoryName, sortedPageable);
-
-        // 응답 데이터 변환
-        return ResultResponse.of(RivResultCode.CATEGORY_RECODING_INFO,
-                recodingConverter.toPagedRecodingInfo(categoryRecodingList));
-    }
-
     @PatchMapping("/{recodingId}")
     @Operation(summary = "요약본 텍스트 파일 수정 API", description = "recodingId를 기반으로 제목과 텍스트를 수정합니다.")
     public ResultResponse<RecodingResponse.UpdateRecodingInfo> updateRecoding(

@@ -91,10 +91,25 @@ public class RecodingServiceImpl implements RecodingService {
         return recodingRepository.findByChannelId(channelId, pageable);
     }
 
+    //특정 채널과 카테고리에 해당하는 레코딩 목록 조회 (페이징)
     @Override
     @Transactional(readOnly = true)
-    public Page<Recoding> getCategoryRecodingList(String categoryName, Pageable pageable) {
-        return recodingRepository.findByCategory(categoryName, pageable);
+    public Page<Recoding> getRecodingListByChannelAndCategory(Long channelId, String categoryName, Pageable pageable) {
+        return recodingRepository.findByChannelIdAndCategory(channelId, categoryName, pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Recoding> getRecodingListByChannelAndSearch(Long channelId, String search, Pageable pageable) {
+        // text 필드에 search 포함하는 조건 추가
+        return recodingRepository.findByChannelIdAndTextContainingIgnoreCase(channelId, search, pageable);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Recoding> getRecodingListByChannelCategoryAndSearch(Long channelId, String categoryName, String search, Pageable pageable) {
+        // 특정 채널, 특정 카테고리, 그리고 text에 search가 포함되는 레코딩 조회
+        return recodingRepository.findByChannelIdAndCategoryAndTextContainingIgnoreCase(channelId, categoryName, search, pageable);
     }
 
     private Recoding findRecoding(Long recodingId) {

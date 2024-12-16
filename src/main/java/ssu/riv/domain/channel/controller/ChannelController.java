@@ -82,12 +82,17 @@ public class ChannelController {
     @GetMapping("/channels/{channelId}")
     @Operation(summary = "요약본 목록 조회 API", description = "특정 채널의 요약본 텍스트 파일 목록을 페이징 처리하여 조회하는 API입니다.")
     @Parameters(value = {
+            @Parameter(name = "categoryName", description = "조회할 카테고리명(아무것도 안 넣으면 전체 조회)"),
+            @Parameter(name = "isdesc", description = "정렬 순서(true면 내림차순, false면 오름차순)"),
+            @Parameter(name = "search", description = "검색할 단어(아무것도 안 넣으면 검색 필터 없음)"),
             @Parameter(name = "page", description = "조회할 페이지를 입력하세요 (0부터 시작)"),
             @Parameter(name = "size", description = "페이지당 표시할 요약본 개수를 입력하세요.")
     })
     public ResultResponse<RecodingResponse.PagedRecodingInfo> getRecodingList(
             @PathVariable Long channelId,
+            @RequestParam(value = "categoryName", required = false) String categoryName,
             @RequestParam(value = "isdesc", defaultValue = "true") boolean isdesc,
+            @RequestParam(value = "search", required = false) String search,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
             @Parameter(hidden = true) Pageable pageable) {
 
@@ -97,8 +102,24 @@ public class ChannelController {
         // 기존 Pageable을 새로운 Sort로 재생성
         Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
 
-        // 서비스 호출하여 페이징 처리된 요약본 조회
-        Page<Recoding> recodingList = recodingService.getRecodingList(channelId, sortedPageable);
+        // categoryName, search 값 유무에 따른 조회 로직
+        Page<Recoding> recodingList;
+        boolean hasCategory = categoryName != null && !categoryName.isEmpty();
+        boolean hasSearch = search != null && !search.isEmpty();
+
+        if (!hasCategory && !hasSearch) {
+            // 카테고리 없음, 검색어 없음 → 전체 조회
+            recodingList = recodingService.getRecodingList(channelId, sortedPageable);
+        } else if (hasCategory && !hasSearch) {
+            // 카테고리 있음, 검색어 없음
+            recodingList = recodingService.getRecodingListByChannelAndCategory(channelId, categoryName, sortedPageable);
+        } else if (!hasCategory && hasSearch) {
+            // 카테고리 없음, 검색어 있음
+            recodingList = recodingService.getRecodingListByChannelAndSearch(channelId, search, sortedPageable);
+        } else {
+            // 카테고리 있음, 검색어 있음
+            recodingList = recodingService.getRecodingListByChannelCategoryAndSearch(channelId, categoryName, search, sortedPageable);
+        }
 
         // 페이징 데이터 변환 및 응답
         return ResultResponse.of(RivResultCode.GET_RECODING_LIST,

@@ -15,6 +15,7 @@ public interface RecodingRepository extends JpaRepository<Recoding, Long> {
     Page<Recoding> findByChannelId(Long channelId, Pageable pageable);
     @Query("SELECT DISTINCT r.category FROM Recoding r WHERE r.channel.id = :channelId")
     List<String> findDistinctCategoryByChannelId(@Param("channelId") Long channelId);
-    // 카테고리별 페이징 조회 메서드
-    Page<Recoding> findByCategory(String category, Pageable pageable);
+    Page<Recoding> findByChannelIdAndCategory(Long channelId, String category, Pageable pageable);
+    Page<Recoding> findByChannelIdAndTextContainingIgnoreCase(Long channelId, String text, Pageable pageable);
+    Page<Recoding> findByChannelIdAndCategoryAndTextContainingIgnoreCase(Long channelId, String category, String text, Pageable pageable);
 }
