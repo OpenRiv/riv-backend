@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ssu.riv.domain.recoding.converter.RecodingConverter;
 import ssu.riv.domain.recoding.dto.RecodingRequest;
@@ -63,10 +65,17 @@ public class RecodingController {
             @Parameter(name = "size", description = "페이지당 표시할 요약본 개수를 입력하세요.")
     })
     public ResultResponse<RecodingResponse.PagedRecodingInfo> getCategoryRecoding(@PathVariable String categoryName,
+                                                                                  @RequestParam(value = "isdesc", defaultValue = "true") boolean isdesc,
                                                                                       @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
                                                                                       @Parameter(hidden = true) Pageable pageable) {
+        // isdesc 값에 따라 정렬 방향 결정
+        Sort sort = Sort.by(isdesc ? Sort.Direction.DESC : Sort.Direction.ASC, "createdAt");
+
+        // 기존 Pageable을 새로운 Sort로 재생성
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
         // 페이징 처리된 요약본 조회
-        Page<Recoding> categoryRecodingList = recodingService.getCategoryRecodingList(categoryName, pageable);
+        Page<Recoding> categoryRecodingList = recodingService.getCategoryRecodingList(categoryName, sortedPageable);
 
         // 응답 데이터 변환
         return ResultResponse.of(RivResultCode.CATEGORY_RECODING_INFO,

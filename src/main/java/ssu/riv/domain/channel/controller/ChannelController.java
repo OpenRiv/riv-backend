@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -86,11 +87,18 @@ public class ChannelController {
     })
     public ResultResponse<RecodingResponse.PagedRecodingInfo> getRecodingList(
             @PathVariable Long channelId,
+            @RequestParam(value = "isdesc", defaultValue = "true") boolean isdesc,
             @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC)
             @Parameter(hidden = true) Pageable pageable) {
 
+        // isdesc 값에 따라 정렬 방향 결정
+        Sort sort = Sort.by(isdesc ? Sort.Direction.DESC : Sort.Direction.ASC, "createdAt");
+
+        // 기존 Pageable을 새로운 Sort로 재생성
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
         // 서비스 호출하여 페이징 처리된 요약본 조회
-        Page<Recoding> recodingList = recodingService.getRecodingList(channelId, pageable);
+        Page<Recoding> recodingList = recodingService.getRecodingList(channelId, sortedPageable);
 
         // 페이징 데이터 변환 및 응답
         return ResultResponse.of(RivResultCode.GET_RECODING_LIST,
