@@ -16,4 +16,5 @@ public interface RecodingService {
     Page<Recoding> getRecodingListByChannelAndCategory(Long channelId, String categoryName, Pageable pageable);
     Page<Recoding> getRecodingListByChannelAndSearch(Long channelId, String search, Pageable pageable);
     Page<Recoding> getRecodingListByChannelCategoryAndSearch(Long channelId, String categoryName, String search, Pageable pageable);
+    Recoding saveRecodingByUnique(RecodingRequest.SaveRecodingRequestByUnique request);
 }

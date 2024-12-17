@@ -11,6 +11,8 @@ import ssu.riv.domain.channel.repository.ChannelRepository;
 import ssu.riv.domain.recoding.dto.RecodingRequest;
 import ssu.riv.domain.recoding.entity.Recoding;
 import ssu.riv.domain.recoding.repository.RecodingRepository;
+import ssu.riv.domain.server.entity.Server;
+import ssu.riv.domain.server.repository.ServerRepository;
 import ssu.riv.global.error.BusinessException;
 import ssu.riv.global.error.code.RivErrorCode;
 
@@ -23,6 +25,7 @@ import java.time.LocalDateTime;
 public class RecodingServiceImpl implements RecodingService {
     private final RecodingRepository recodingRepository;
     private final ChannelRepository channelRepository;
+    private final ServerRepository serverRepository;
 
     @Override
     public Recoding saveRecoding(RecodingRequest.SaveRecodingRequest request) {
@@ -43,6 +46,39 @@ public class RecodingServiceImpl implements RecodingService {
                 .category(request.getCategoryName())
                 .build();
 
+        return recodingRepository.save(recoding);
+    }
+
+    @Override
+    public Recoding saveRecodingByUnique(RecodingRequest.SaveRecodingRequestByUnique request) {
+
+        // 1. 서버가 존재하는지 확인
+        Server server = serverRepository.findByServerUnique(request.getServerUniqueId())
+                .orElseThrow(() -> new BusinessException(RivErrorCode.SERVER_NOT_FOUND));
+
+        // request.getUniqueId()를 이용해 채널 조회
+        Channel channel = channelRepository.findByChannelUnique(request.getChannelUniqueId())
+                .orElseGet(() -> {
+                    // 채널이 없으면 새로 생성
+                    Channel newChannel = Channel.builder()
+                            .channelUnique(request.getChannelUniqueId())
+                            .server(server)
+                            .build();
+                    return channelRepository.save(newChannel);
+                });
+
+        // Recoding 엔티티 생성
+        Recoding recoding = Recoding.builder()
+                .channel(channel)
+                .title(request.getTitle())
+                .text(request.getText())
+                .createdAt(LocalDateTime.now()) // 생성 시간 저장
+                .startTime(request.getStartTime())
+                .endTime(request.getEndTime())
+                .category(request.getCategoryName())
+                .build();
+
+        // 저장
         return recodingRepository.save(recoding);
     }
 

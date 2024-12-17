@@ -19,6 +19,17 @@ public abstract class RecodingResponse {
         private String category;
     }
 
+    //유니크 id로 파일 저장 시
+    @Getter
+    @Builder
+    public static class SaveRecodingInfoByUnique {
+        private Long recodingId;     // 생성된 Recoding ID
+        private LocalDateTime createdAt; // 생성된 시간
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
+        private String category;
+    }
+
     //파일 조회 시
     @Getter
     @Builder

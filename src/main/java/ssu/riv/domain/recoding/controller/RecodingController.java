@@ -46,6 +46,16 @@ public class RecodingController {
                 recodingConverter.toSaveRecodingInfo(recoding));
     }
 
+    @PostMapping("/unique")
+    @Operation(summary = "UniqueId로 요약본 텍스트 파일 저장 API", description = "UniqueId로 요약본 텍스트 파일을 저장하는 API입니다.")
+    public ResultResponse<RecodingResponse.SaveRecodingInfoByUnique> saveRecodingByUnique(@RequestBody RecodingRequest.SaveRecodingRequestByUnique request) {
+
+        Recoding recoding = recodingService.saveRecodingByUnique(request);
+
+        return ResultResponse.of(RivResultCode.SAVE_RECODING,
+                recodingConverter.toSaveRecodingInfoByUnique(recoding));
+    }
+
     @GetMapping("/{recodingId}")
     @Operation(summary = "요약본 텍스트 파일 조회 API", description = "특정 recodingId와 channelId로 레코딩 정보를 조회하는 API입니다.")
     public ResultResponse<RecodingResponse.GetRecodingInfo> getRecoding(@PathVariable Long recodingId) {

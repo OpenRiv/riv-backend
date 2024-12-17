@@ -26,6 +26,17 @@ public class RecodingConverter {
                 .build();
     }
 
+    public RecodingResponse.SaveRecodingInfoByUnique toSaveRecodingInfoByUnique(Recoding recoding) {
+        return RecodingResponse.SaveRecodingInfoByUnique
+                .builder()
+                .recodingId(recoding.getId()) // Recoding ID
+                .createdAt(recoding.getCreatedAt()) // 생성 시간
+                .startTime(recoding.getStartTime())
+                .endTime(recoding.getEndTime())
+                .category(recoding.getCategory())
+                .build();
+    }
+
     public RecodingResponse.GetRecodingInfo toRecodingInfo(Recoding recoding) {
         return RecodingResponse.GetRecodingInfo
                 .builder()
