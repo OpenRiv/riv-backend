@@ -113,7 +113,7 @@ public class ChannelServiceImpl implements ChannelService {
     public List<String> getCategoriesByChannel(Long channelId) {
         // 1. 채널이 존재하는지 확인
         channelRepository.findById(channelId)
-                .orElseThrow(() -> new BusinessException(RivErrorCode.CHANNEL_NOT_FOUND);
+                .orElseThrow(() -> new BusinessException(RivErrorCode.CHANNEL_NOT_FOUND));
 
         // Repository를 통해 Distinct한 카테고리 목록 조회
         return recodingRepository.findDistinctCategoryByChannelId(channelId);
