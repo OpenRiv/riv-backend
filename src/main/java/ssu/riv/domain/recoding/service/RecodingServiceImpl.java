@@ -88,6 +88,8 @@ public class RecodingServiceImpl implements RecodingService {
     @Override
     @Transactional(readOnly = true)
     public Page<Recoding> getRecodingList(Long channelId, Pageable pageable) {
+        // 채널이 존재하는지 확인
+        findChannel(channelId);
         return recodingRepository.findByChannelId(channelId, pageable);
     }
 
@@ -95,12 +97,14 @@ public class RecodingServiceImpl implements RecodingService {
     @Override
     @Transactional(readOnly = true)
     public Page<Recoding> getRecodingListByChannelAndCategory(Long channelId, String categoryName, Pageable pageable) {
+        findChannel(channelId);
         return recodingRepository.findByChannelIdAndCategory(channelId, categoryName, pageable);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Page<Recoding> getRecodingListByChannelAndSearch(Long channelId, String search, Pageable pageable) {
+        findChannel(channelId);
         // text 필드에 search 포함하는 조건 추가
         return recodingRepository.findByChannelIdAndTextContainingIgnoreCase(channelId, search, pageable);
     }
@@ -108,6 +112,7 @@ public class RecodingServiceImpl implements RecodingService {
     @Override
     @Transactional(readOnly = true)
     public Page<Recoding> getRecodingListByChannelCategoryAndSearch(Long channelId, String categoryName, String search, Pageable pageable) {
+        findChannel(channelId);
         // 특정 채널, 특정 카테고리, 그리고 text에 search가 포함되는 레코딩 조회
         return recodingRepository.findByChannelIdAndCategoryAndTextContainingIgnoreCase(channelId, categoryName, search, pageable);
     }
@@ -117,4 +122,10 @@ public class RecodingServiceImpl implements RecodingService {
                 .orElseThrow(() -> new BusinessException(RivErrorCode.RECODING_NOT_FOUND));
     }
 
+    private void findChannel(Long channelId) {
+        // 채널이 존재하는지 확인
+        channelRepository.findById(channelId)
+                .orElseThrow(() -> new BusinessException(RivErrorCode.CHANNEL_NOT_FOUND));
+
+    }
 }

@@ -71,6 +71,11 @@ public class ChannelServiceImpl implements ChannelService {
     @Override
     @Transactional(readOnly = true)
     public List<Long> getChannelList(Long serverId) {
+
+        // 1. 서버가 존재하는지 확인
+        Server server = serverRepository.findById(serverId)
+                .orElseThrow(() -> new BusinessException(RivErrorCode.SERVER_NOT_FOUND));
+
         // 서버 ID로 채널 목록 조회
         return channelRepository.findByServerId(serverId)
                 .stream()
@@ -106,8 +111,11 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public List<String> getCategoriesByChannel(Long channelId) {
+        // 1. 채널이 존재하는지 확인
+        channelRepository.findById(channelId)
+                .orElseThrow(() -> new BusinessException(RivErrorCode.CHANNEL_NOT_FOUND);
+
         // Repository를 통해 Distinct한 카테고리 목록 조회
         return recodingRepository.findDistinctCategoryByChannelId(channelId);
     }
-
 }
