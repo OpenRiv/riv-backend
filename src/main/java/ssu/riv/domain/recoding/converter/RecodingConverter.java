@@ -33,6 +33,8 @@ public class RecodingConverter {
                 .title(recoding.getTitle())
                 .text(recoding.getText())
                 .createdAt(recoding.getCreatedAt())
+                .startTime(recoding.getStartTime())
+                .endTime(recoding.getEndTime())
                 .build();
     }
 

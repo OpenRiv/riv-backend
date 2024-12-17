@@ -27,6 +27,8 @@ public abstract class RecodingResponse {
         private String title;
         private String text;
         private LocalDateTime createdAt;
+        private LocalDateTime startTime;
+        private LocalDateTime endTime;
     }
 
     //파일 수정 시

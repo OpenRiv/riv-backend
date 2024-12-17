@@ -33,6 +33,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
 				.allowedOrigins("http://3.37.89.101:8080",
+						"https://3.37.89.101:443",
 						"https://riv-frontend.vercel.app",
 						"http://localhost:5173",
 						"https://www.riv-discord.online/",
