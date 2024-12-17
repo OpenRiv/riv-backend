@@ -177,6 +177,9 @@ discord:
    - `https://3.37.89.101/swagger-ui/index.html#`
 - HTTPS 설정 시, **HTTP → HTTPS 리다이렉트**가 자동 적용됩니다.
 
+  <img width="1341" alt="image" src="https://github.com/user-attachments/assets/04a19185-46c9-46c1-a4a8-2fb9d2089a78" />
+
+
 <br/>
 
 ## 4. 개발자 가이드 👨‍💻
