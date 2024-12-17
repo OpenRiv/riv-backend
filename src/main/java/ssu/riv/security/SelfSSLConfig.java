@@ -4,7 +4,9 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,18 @@ import org.springframework.context.annotation.Configuration;
 //자체인증서를 사용하기 위한 클래스
 @Configuration
 public class SelfSSLConfig {
+
+    @Value("${server.ssl.key-store}")
+    private String keyStore;
+
+    @Value("${server.ssl.key-store-password}")
+    private String keyStorePassword;
+
+    @Value("${server.ssl.key-store-type}")
+    private String keyStoreType;
+
+    @Value("${server.ssl.key-alias}")
+    private String keyAlias;
 
     @Bean
     public ServletWebServerFactory servletContainer() {
@@ -27,6 +41,17 @@ public class SelfSSLConfig {
                 context.addConstraint(securityConstraint);
             }
         };
+
+        // 추가된 부분
+        // HTTPS 설정
+        Ssl ssl = new Ssl();
+        ssl.setKeyStore(keyStore);
+        ssl.setKeyStorePassword(keyStorePassword);
+        ssl.setKeyStoreType(keyStoreType);
+        ssl.setKeyAlias(keyAlias);
+
+        tomcat.setSsl(ssl);
+        tomcat.setPort(443); // HTTPS 포트 설정
 
         // Add HTTP to HTTPS redirect
         tomcat.addAdditionalTomcatConnectors(httpToHttpsRedirectConnector());
