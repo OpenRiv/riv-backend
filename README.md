@@ -10,6 +10,7 @@ OAuth2 로그인, Swagger 문서화, SSL 인증서 설정을 포함하고 있습
 
 ## 주요 기능 
 
+
 ✅️ **Spring Security를 사용한 OAuth2 로그인**
 
 디스코드 OAuth2를 활용해 사용자 인증 및 서버 정보 접근이 가능합니다.
@@ -30,12 +31,13 @@ API 문서를 Swagger를 통해 시각화하여 협업 및 테스트를 용이�
 
 SSL 인증서를 설정해 보안을 강화하고, 리다이렉트 설정으로 HTTPS를 지원합니다.
 
-
+<br/>
 
 # Riv-backend Manual 📖
-
+<br/>
 
 ## 1. 설치 가이드 🚀
+<br/>
 
 ### 시스템 요구사항
 
@@ -44,7 +46,7 @@ SSL 인증서를 설정해 보안을 강화하고, 리다이렉트 설정으로 
 - **AWS EC2** 및 **RDS MySQL** 사용
 - 디스크 여유 공간: 최소 1GB
 - RAM: 최소 512MB
-
+<br/>
 
 ### **설치 단계**
 
@@ -54,6 +56,7 @@ SSL 인증서를 설정해 보안을 강화하고, 리다이렉트 설정으로 
 git clone https://github.com/OpenRiv/riv-backend.git
 cd riv-backend
 ```
+<br/>
 
 2. **Gradle 의존성 설치
 - `build.gradle` 파일에 설정된 의존성을 설치합니다.
@@ -61,6 +64,7 @@ cd riv-backend
 ```bash
 ./gradlew clean build
 ```
+<br/>
 
 3. **데이터베이스 설정**
 - MySQL RDS 인스턴스를 준비하고 `application.yml`에 접속 정보를 입력합니다.
@@ -75,6 +79,7 @@ spring:
     hibernate:
       ddl-auto: update
 ```
+<br/>
 
 4. **서버 실행** (443 포트)
 
@@ -82,10 +87,10 @@ spring:
 nohup java -jar oauth2-discord.jar &
 ```
 
-
+<br/>
 
 ## 개발 환경 설정 ⚙️
-
+<br/>
 
 **Gradle 플러그인 및 버전**
 
@@ -96,7 +101,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 ```
-
+<br/>
 **주요 의존성**
 
 ```
@@ -112,6 +117,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 }
 ```
+<br/>
 **application.yml 파일 설정**
 - ssl 인증서를 이용하기 위한 정보를 저장합니다.
 - 디스코드 봇의 이용 권한을 얻기 위해 scope를 설정합니다.
@@ -159,17 +165,17 @@ discord:
 
 ```
 
-
+<br/>
 ## 3. 사용자 가이드 🗒️
 
-
+<br/>
 ### **Swagger 문서 사용법**
 
 - 서버를 실행한 후 브라우저에서 Swagger 문서를 확인합니다
    - `https://3.37.89.101/swagger-ui/index.html#`
 - HTTPS 설정 시, **HTTP → HTTPS 리다이렉트**가 자동 적용됩니다.
 
-
+<br/>
 
 ## 4. 개발자 가이드 👨‍💻
 
@@ -201,6 +207,7 @@ src/
 └── test/
 
 ```
+<br/>
 
 ### 기술 스택
 
@@ -212,7 +219,7 @@ src/
 - AWS EC2
 - JDA (Discord API 사용)
 
-
+<br/>
 
 ### 주요 코드 🛠️
 
@@ -261,7 +268,7 @@ public List<Long> getGuildChannel(Long guildId) {
 
 ```
 
-
+<br/>
 
 ## 5. 문제 해결 🛠️
 
@@ -283,21 +290,25 @@ public List<Long> getGuildChannel(Long guildId) {
 - resources/ 아래에 자체 SSL 인증서를 생성
 - 이후 application.yml 설정
 
+<br/>
 
 ## 6. 기여 가이드 🤝
 
+<br/>
 
 ### **파일 구조 규칙**
 
 - Controller → Converter -> Service → Repository 순으로 계층 분리
 - 예외 처리는 `BusinessException`과 `ErrorCode`를 사용
 
+<br/>
+
 ### **함수화 가이드**
 
 - `findChannel(Long channelId)`처럼 반복되는 코드를 함수화합니다.
 - 예외 발생 시 Exception을 던져 명확하게 처리합니다.
 
-
+<br/>
 
 ### **Pull Request 프로세스**
 
@@ -307,6 +318,7 @@ public List<Long> getGuildChannel(Long guildId) {
 4. **Pull Request 생성**
 5. **코드 리뷰 진행**
 
+<br/>
 
 ---
 
