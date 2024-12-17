@@ -8,8 +8,7 @@ OAuth2 로그인, Swagger 문서화, SSL 인증서 설정을 포함하고 있습
 
 
 
-## 주요 기능 ✨
-
+## 주요 기능 
 ---
 
 ✅️ **Spring Security를 사용한 OAuth2 로그인**
