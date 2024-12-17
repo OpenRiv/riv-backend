@@ -9,7 +9,6 @@ OAuth2 로그인, Swagger 문서화, SSL 인증서 설정을 포함하고 있습
 
 
 ## 주요 기능 
----
 
 ✅️ **Spring Security를 사용한 OAuth2 로그인**
 
@@ -35,7 +34,6 @@ SSL 인증서를 설정해 보안을 강화하고, 리다이렉트 설정으로 
 
 # Riv-backend Manual 📖
 
-----
 
 ## 1. 설치 가이드 🚀
 
@@ -88,7 +86,6 @@ nohup java -jar oauth2-discord.jar &
 
 ## 개발 환경 설정 ⚙️
 
----
 
 **Gradle 플러그인 및 버전**
 
@@ -165,7 +162,6 @@ discord:
 
 ## 3. 사용자 가이드 🗒️
 
----
 
 ### **Swagger 문서 사용법**
 
@@ -177,7 +173,6 @@ discord:
 
 ## 4. 개발자 가이드 👨‍💻
 
----
 
 ### **코드 구조**
 
@@ -270,7 +265,6 @@ public List<Long> getGuildChannel(Long guildId) {
 
 ## 5. 문제 해결 🛠️
 
----
 
 1. **CORS 오류 해결**
     - WebConfig에 아래와 같은 Cors 설정 추가
@@ -292,7 +286,6 @@ public List<Long> getGuildChannel(Long guildId) {
 
 ## 6. 기여 가이드 🤝
 
----
 
 ### **파일 구조 규칙**
 
