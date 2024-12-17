@@ -170,6 +170,7 @@ discord:
 ## 3. 사용자 가이드 🗒️
 
 <br/>
+
 ### **Swagger 문서 사용법**
 
 - 서버를 실행한 후 브라우저에서 Swagger 문서를 확인합니다
@@ -295,7 +296,7 @@ public List<Long> getGuildChannel(Long guildId) {
 
 ## 6. 기여 가이드 🤝
 
-<br/>
+
 
 ### **파일 구조 규칙**
 
