@@ -16,6 +16,11 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.15.RELEASE' // 호환되는 dependency-management 버전
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 repositories {
     mavenCentral()
 }
@@ -60,8 +65,8 @@ dependencies {
     implementation 'net.dv8tion:JDA:5.2.1'
 
     //AWS S3
-    implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.0")
-    implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3'
+    //implementation platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.0.0")
+    //implementation 'io.awspring.cloud:spring-cloud-aws-starter-s3' 자바8 안됨
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
