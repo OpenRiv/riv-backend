@@ -39,3 +39,4 @@ out/
 application.yml
 firebase_key.json
 *.log
+*.p12
