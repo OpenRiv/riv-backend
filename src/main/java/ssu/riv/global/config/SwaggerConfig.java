@@ -24,7 +24,7 @@ public class SwaggerConfig {
         SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
 
         Server server = new Server();
-        server.setUrl("https://3.37.89.101:443");
+        server.setUrl("https://rivbot.codns.com");
 
         Server local = new Server();
         local.setUrl("http://localhost:8080");
@@ -53,7 +53,7 @@ public class SwaggerConfig {
         return new Info()
                 .title("Riv봇 서비스 API")
                 .description("언제나 회의와 함께하는 Riv봇 서비스입니다.")
-                .version("1.0.0");
+                .version("2.0.0");
     }
 }
 
