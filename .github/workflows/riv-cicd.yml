@@ -44,12 +44,12 @@ jobs:
       - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
 
-      # (4) JDK 17 세팅
-      - name: Set up JDK 17
+      # (4) JDK 세팅
+      - name: Set up JDK 8
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '8'
 
       # (5) Gradle build (Test 제외)
       - name: Build with Gradle
